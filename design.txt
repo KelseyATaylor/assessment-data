@@ -1,0 +1,13 @@
+Pet Adoption Agency
+
+Brainstorming
+- Animals are related to Species
+- Species has tables for dogs, cats, birds, reptiles, other..
+- Those tables have characteristics, temperment, color/appearance, good with other pets, breed etc.
+
+Tables
+--Animals(id, species, name, age, date_at_shelter)
+--Species(id, species_name, animals_id)
+--breed(id, species_id,)
+--color(id, breed_id, color1, color2, breed_id)
+--temperament(id, good_with_dogs, good_with_cats, good_with_children, animals_id)
