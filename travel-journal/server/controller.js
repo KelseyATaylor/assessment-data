@@ -249,9 +249,8 @@ module.exports = {
 		const { name, rating, countryId } = req.body;
 		sequelize
 			.query(
-				`INSERT INTO cities (name, rating, countryId)
-            VALUES ('${name}', ${rating}, ${countryId} )
-            ;`
+				`INSERT INTO cities (name, rating, country_id)
+            VALUES ('${name}', ${rating}, ${countryId} );`
 			)
 			.then((dbRes) => res.status(200).send(dbRes[0]))
 			.catch((err) => console.log(err));
@@ -260,24 +259,22 @@ module.exports = {
 	getCities: (req, res) => {
 		sequelize
 			.query(
-				`
-                SELECT c.city_id, c.name AS c.city, c.rating, o.country_id, o.name AS o.country 
-        FROM cities AS c
-        JOIN countries AS o
-        ON c.country_id = o.country_id        
-        ;`
-				// Lol this super doesn't work, but good try Kelsey. Go back and look up how to do multiple aliases/within the column & table name. Syntax.
+				`SELECT ci.city_id, ci.name AS city, ci.rating, co.country_id, co.name AS country
+                FROM cities ci
+                JOIN countries co 
+                ON ci.country_id = co.country_id;
+                `
 			)
 			.then((dbRes) => res.status(200).send(dbRes[0]))
 			.catch((err) => console.log(err));
 	},
 
 	deleteCity: (req, res) => {
-		const { id, city_id } = req.params;
+		const { id } = req.params;
 		sequelize
 			.query(
 				`DELETE FROM cities
-            WHERE id = ${city_id}`
+            WHERE city_id = ${id};`
 			)
 			.then((dbRes) => res.status(200).send(dbRes[0]))
 			.catch((err) => console.log(err));
